@@ -1,0 +1,9 @@
+react/node_modules/
+.env
+Pipfile.lock
+DBProject.zip
+queries.py
+tables.py
+sqlsetup.py
+__pycache__/
+react/package-lock.json

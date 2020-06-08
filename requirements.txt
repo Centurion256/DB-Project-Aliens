@@ -1,0 +1,6 @@
+pipenv
+python-dotenv
+psycopg2
+flask
+flask-sqlalchemy
+CORS

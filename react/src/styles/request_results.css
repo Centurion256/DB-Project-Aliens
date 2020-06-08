@@ -1,0 +1,37 @@
+.request_results_container {
+    width: 100%;
+    height: 950px;
+    background-color: #b1afaf
+}
+
+.request_label {
+    color: black;
+}
+
+.request_form {
+    padding-top: 5%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.request_input {
+    background-color: white;
+}
+
+.send_button {
+    border: 0;
+    background-color: white;
+    color: black;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+.request_text {
+    margin-top: 0;
+    padding-top: 5%;
+    padding-left: 30%;
+    padding-right: 30%;
+    font-size: 40px;
+    color: white;
+    text-align: center;
+}
