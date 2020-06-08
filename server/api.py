@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from os import environ
 from sqlsetup import db
-from tables import Alien, Human, Spaceship, Abduction
+from tables import Alien, Human, Spaceship, Abduction, Excursion, Experiment, Murder, Transportation, Redemption
 from datetime import date
 
 app = Flask(__name__)
@@ -38,7 +38,7 @@ def aliens_q1():
                         .join(Abduction, Human.id == Abduction.humanid) \
                         .filter(Abduction.date > data.get("start_date"), Abduction.date < data.get("end_date")) \
                         .join(Alien, Abduction.alienid == Alien.id) \
-                        .filter(Alien.id == data.get("alienid")) \
+                        .filter(Alien.name == data.get("alien_name")) \
                         .group_by(Alien.name, Human.id) \
                         .having(db.func.count() >= data.get("count")) \
                         .all()
@@ -75,20 +75,26 @@ def aliens_q7():
     print(abducted)
     return jsonify(abducted)
 
-#TODO
+
 @app.route('/api/display/q8', methods=['GET'])
 def aliens_q8():
 
     
     data = request.args
-    abducted = db.session.query(Human.id, Human.name.label("human_name")) \
-                        .join(Abduction, Human.id == Abduction.humanid) \
-                        .filter(Abduction.date > data.get("start_date"), Abduction.date < data.get("end_date")) \
-                        .group_by(Human.id) \
-                        .having(db.func.count(Abduction.alienid) >= data.get("count")) \
-                        .all()
+    print(data.get("start_date"))
+    excursions = db.session.query(Excursion.id, Excursion.date) \
+                        .filter(Excursion.date > data.get("start_date"), Excursion.date < data.get("end_date")) \
+                        .join(Human, Excursion.humans) \
+                        .filter(Human.name == data.get("human_name")) \
+                        .join(Alien, Excursion.alienid == Alien.id) \
+                        .filter(Alien.name == data.get("alien_name"))
+    experiments = db.session.query(Experiment.id, Experiment.date) \
+                        .filter(Experiment.date > data.get("start_date"), Experiment.date < data.get("end_date")) \
+                        .join(Alien, Experiment.aliens) \
+                        .filter(Alien.name == data.get("alien_name")) \
+                        .join(Human, Experiment.humanid == Human.id) \
+                        .filter(Human.name == data.get("human_name"))
 
-    # excursions = db.session.
-
-    print(abducted)
-    return jsonify(abducted)
+    result = excursions.union(experiments).all()
+    print(result)
+    return jsonify(result)

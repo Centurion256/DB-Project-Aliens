@@ -3,3 +3,4 @@ Pipfile.lock
 DBProject.zip
 __pycache__/
 react/package-lock.json
+.env

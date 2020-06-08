@@ -186,8 +186,8 @@ class ExcursionFill extends Component {
                     <label className="filling_label">
                         Date:
                         <input className="filling_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <input type="submit" value="Send" className="send_button"/>
                 </form>
@@ -213,8 +213,8 @@ class RedemptionFill extends Component {
                     <label className="filling_label">
                         Date:
                         <input className="filling_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <input type="submit" value="Send" className="send_button"/>
                 </form>
@@ -240,8 +240,8 @@ class MurderFill extends Component {
                     <label className="filling_label">
                         Date:
                         <input className="filling_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <input type="submit" value="Send" className="send_button"/>
                 </form>
@@ -275,8 +275,8 @@ class TransportationFill extends Component {
                     <label className="filling_label">
                         Date:
                         <input className="filling_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <input type="submit" value="Send" className="send_button"/>
                 </form>
@@ -306,8 +306,8 @@ class AbductionFill extends Component {
                     <label className="filling_label">
                         Date:
                         <input className="filling_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <input type="submit" value="Send" className="send_button"/>
                 </form>
@@ -333,8 +333,8 @@ class ConvictionLogFill extends Component {
                     <label className="filling_label">
                         Date:
                         <input className="filling_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <label className="filling_label">
                         Source:
@@ -364,8 +364,8 @@ class ExperimentFill extends Component {
                     <label className="filling_label">
                         Date:
                         <input className="filling_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <input type="submit" value="Send" className="send_button"/>
                 </form>

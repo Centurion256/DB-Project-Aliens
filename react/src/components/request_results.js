@@ -112,13 +112,11 @@ class Q1 extends Component {
         event.preventDefault();
         console.log("In handleSubmit");
         let data = new FormData(event.target);
-        alert(data.get("alienid"));
-        alert(data.get("count"));
         axios({ //Request data from the server
             method: 'get',
             url: '/api/display/q1',
             params: {
-                "alienid": data.get("alienid"),
+                "alien_name": data.get("alien_name"),
                 "count": data.get("count"),
                 "start_date": data.get("start_date"),
                 "end_date": data.get("end_date")
@@ -132,8 +130,8 @@ class Q1 extends Component {
                 <h1 className="request_text">For (alien A) find all people it abducted at least (N) times during the specified period (from date F to date T)</h1>
                 <form className="request_form" onSubmit={this.handleSubmit}>
                     <label className="request_label">
-                        AlienID:
-                        <input type="text" name="alienid" className="request_input"/>
+                        Alien Name:
+                        <input type="text" name="alien_name" className="request_input"/>
                     </label>
                     <label className="request_label">
                         Number of times:
@@ -163,7 +161,7 @@ class Q2 extends Component {
         return (
             <div className="request_results_container">
                 <h1 className="request_text">For (human H) find all the ships he/she has visited during the specified period (from date F to date T)</h1>
-                <form className="request_form">
+                <form className="request_form" onSubmit={this.handleSubmit}>
                     <label className="request_label">
                         HumanID:
                         <input type="text" className="request_input"/>
@@ -171,14 +169,14 @@ class Q2 extends Component {
                     <label className="request_label">
                         From Date:
                         <input className="filling_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <label className="request_label">
                         To Date:
                         <input className="request_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <input type="submit" value="Send" className="send_button"/>
                 </form>
@@ -192,7 +190,7 @@ class Q3 extends Component {
         return (
             <div className="request_results_container">
                 <h1 className="request_text">For (human H), find all aliens who abducted him/her at least (N times) during the specified period (from date F to date T);</h1>
-                <form className="request_form">
+                <form className="request_form" onSubmit={this.handleSubmit}>
                     <label className="request_label">
                         HumanID:
                         <input type="text" className="request_input"/>
@@ -204,14 +202,14 @@ class Q3 extends Component {
                     <label className="request_label">
                         From Date:
                         <input className="filling_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <label className="request_label">
                         To Date:
                         <input className="request_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <input type="submit" value="Send" className="send_button"/>
                 </form>
@@ -226,7 +224,7 @@ class Q4 extends Component {
         return (
             <div className="request_results_container">
                 <h1 className="request_text">For (human H), find all the aliens he/she killed during the specified period (from date F to date T);</h1>
-                <form className="request_form">
+                <form className="request_form" onSubmit={this.handleSubmit}>
                     <label className="request_label">
                         HumanID:
                         <input type="text" className="request_input"/>
@@ -234,14 +232,14 @@ class Q4 extends Component {
                     <label className="request_label">
                         From Date:
                         <input className="filling_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <label className="request_label">
                         To Date:
                         <input className="request_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <input type="submit" value="Send" className="send_button"/>
                 </form>
@@ -255,7 +253,7 @@ class Q5 extends Component {
         return (
             <div className="request_results_container">
                 <h1 className="request_text">For (human H) to find all the aliens who kidnapped him/her and were killed</h1>
-                <form className="request_form">
+                <form className="request_form" onSubmit={this.handleSubmit}>
                     <label className="request_label">
                         HumanID:
                         <input type="text" className="request_input"/>
@@ -367,9 +365,8 @@ class Q8 extends Component {
             method: 'get',
             url: '/api/display/q8',
             params: {
-                "human_id": data.get("humanid"),
-                "alien_id": data.get("alienid"),
-                "count": data.get("count"),
+                "human_name": data.get("human_name"),
+                "alien_name": data.get("alien_name"),
                 "start_date": data.get("start_date"),
                 "end_date": data.get("end_date")
             }})
@@ -382,22 +379,22 @@ class Q8 extends Component {
                 <h1 className="request_text">Find all joint excursions and experiments for (alien A) and (person H) for the specified period (from date F to date T);</h1>
                 <form className="request_form" onSubmit={this.handleSubmit}>
                     <label className="request_label">
-                        AlienID:
-                        <input type="text" className="request_input" name="alienid"/>
+                        Alien Name:
+                        <input type="text" className="request_input" name="alien_name"/>
                     </label>
                     <label className="request_label">
-                        HumanID:
-                        <input type="text" className="request_input" name="humanid"/>
+                        Human Name:
+                        <input type="text" className="request_input" name="human_name"/>
                     </label>
                     <label className="request_label">
                         From Date:
-                        <input className="filling_input" type="date" id="start" name="date_start"
-                               value="2018-07-22"/>
+                        <input className="filling_input" type="date" id="start" name="start_date"
+                               defaultValue="2018-07-22"/>
                     </label>
                     <label className="request_label">
                         To Date:
-                        <input className="request_input" type="date" id="start" name="date_end"
-                               value="2018-07-22"/>
+                        <input className="request_input" type="date" id="start" name="end_date"
+                               defaultValue="2018-07-22"/>
                     </label>
                     <input type="submit" value="Send" className="send_button"/>
                 </form>
@@ -407,31 +404,49 @@ class Q8 extends Component {
 }
 
 class Q9 extends Component {
+
+    handleSubmit = (event) => {
+
+        event.preventDefault();
+        console.log("In handleSubmit");
+        let data = new FormData(event.target);
+        axios({ //Request data from the server
+            method: 'get',
+            url: '/api/display/q9',
+            params: {
+                "count": data.get("count"),
+                "alien_name": data.get("alien_name"),
+                "start_date": data.get("start_date"),
+                "end_date": data.get("end_date")
+            }})
+            .then(res => console.log(JSON.stringify(res.data))); //do something with the data (for example setState)
+    }
+
     render() {
         return (
             <div className="request_results_container">
                 <h1 className="request_text">For (alien A) and each excursion he conducted, find how many times during the specified
                     period (from date F to date T) he conducted an excursion for at least (N) people;</h1>
-                <form className="request_form">
+                <form className="request_form" onSubmit={this.handleSubmit}>
                     <label className="request_label">
-                        AlienID:
-                        <input type="text" className="request_input"/>
+                        Alien Name:
+                        <input type="text" className="request_input" name="alien_name"/>
                     </label>
                     <label className="request_label">
                         From Date:
-                        <input className="filling_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                        <input className="filling_input" type="date" id="start" name="start_date"
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <label className="request_label">
                         To Date:
-                        <input className="request_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                        <input className="request_input" type="date" id="start" name="end_date"
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <label className="request_label">
                         Number of people:
-                        <input type="text" className="request_input"/>
+                        <input type="text" className="request_input" name="count"/>
                     </label>
                     <input type="submit" value="Send" className="send_button"/>
                 </form>
@@ -446,7 +461,7 @@ class Q10 extends Component {
             <div className="request_results_container">
                 <h1 className="request_text">For (human H) and each experiment in which he/she participated, find how many times during
                     the specified period (from date F to date T) the experiment was performed on him/her by at least N aliens;</h1>
-                <form className="request_form">
+                <form className="request_form" onSubmit={this.handleSubmit}>
                     <label className="request_label">
                         HumanID:
                         <input type="text" className="request_input"/>
@@ -454,14 +469,14 @@ class Q10 extends Component {
                     <label className="request_label">
                         From Date:
                         <input className="filling_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <label className="request_label">
                         To Date:
                         <input className="request_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <label className="request_label">
                         Number of aliens:
@@ -479,7 +494,7 @@ class Q11 extends Component {
         return (
             <div className="request_results_container">
                 <h1 className="request_text">Find the total number of abductions by months</h1>
-                <form className="request_form">
+                <form className="request_form" onSubmit={this.handleSubmit}>
                     <input type="submit" value="Send" className="send_button"/>
                 </form>
             </div>
@@ -493,7 +508,7 @@ class Q12 extends Component {
             <div className="request_results_container">
                 <h1 className="request_text">Find ships in descending order of the total number of experiments that were conducted on
                     ship with the participation of this (alien A) during the specified period (from date F to date T);</h1>
-                <form className="request_form">
+                <form className="request_form" onSubmit={this.handleSubmit}>
                     <label className="request_label">
                         AlienID:
                         <input type="text" className="request_input"/>
@@ -501,14 +516,14 @@ class Q12 extends Component {
                     <label className="request_label">
                         From Date:
                         <input className="filling_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <label className="request_label">
                         To Date:
                         <input className="request_input" type="date" id="start" name="trip-start"
-                               value="2018-07-22"
-                               min="2018-01-01" max="2018-12-31"/>
+                               defaultValue="2018-07-22"
+                                />
                     </label>
                     <input type="submit" value="Send" className="send_button"/>
                 </form>
