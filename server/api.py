@@ -11,6 +11,23 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 CORS(app)
 db.init_app(app)
 
+## Views are defined here (They are reflections and therefore need app context)
+
+with app.app_context():
+## START VIEWS
+    class ConvictionLog(db.Model):
+
+        __table__ = db.Table("conviction_log", db.metadata,
+                                db.Column("humanid", db.Integer, db.ForeignKey("human.id"), nullable=False),
+                                db.Column("shipid", db.Integer, db.ForeignKey("spaceship.id"), nullable=False),
+                                db.Column("date", db.Date, nullable=False),
+                                db.Column("source", db.Integer, nullable=False), 
+                                db.PrimaryKeyConstraint('humanid', 'shipid', 'date', 'source'),
+                                autoload=True, autoload_with=db.engine)
+
+## END VIEWS
+
+
 @app.route('/', methods=['GET'])
 def get():
 
@@ -46,6 +63,66 @@ def aliens_q1():
     print(abducted_humans)
     return jsonify(abducted_humans)
 
+@app.route('/api/display/q2/', methods=['GET'])
+def aliens_q2():
+
+    data = request.args
+    print(data)
+    visited_ships = db.session.query(Spaceship.title, ConvictionLog.date) \
+                            .join(Spaceship, ConvictionLog.shipid == Spaceship.id) \
+                            .filter(ConvictionLog.date > data.get("start_date"), ConvictionLog.date < data.get("end_date")) \
+                            .join(Human, ConvictionLog.humanid == Human.id) \
+                            .filter(Human.name == data.get("human_name")) \
+                            .all()
+
+    print(visited_ships)
+    return jsonify(visited_ships)
+
+@app.route('/api/display/q3/', methods=['GET'])
+def aliens_q3():
+
+    data = request.args
+    print(data)
+    abducers = db.session.query(Alien.name, db.func.count(Human.id)) \
+                        .join(Abduction, Alien.id == Abduction.alienid) \
+                        .filter(Abduction.date > data.get("start_date"), Abduction.date < data.get("end_date")) \
+                        .join(Human, Abduction.humanid == Human.id) \
+                        .filter(Human.name == data.get("human_name")) \
+                        .group_by(Alien.name) \
+                        .having(db.func.count(Human.id) >= data.get("count")) \
+                        .all()
+
+    print(abducers)
+    return jsonify(abducers)
+
+
+
+@app.route('/api/display/q4/', methods=['GET'])
+def aliens_q4():
+
+    data = request.args
+    killed_aliens = db.session.query(Alien.name) \
+                        .join(Murder, Alien.id == Murder.alienid) \
+                        .filter(Murder.date > data.get("start_date"), Murder.date < data.get("end_date")) \
+                        .join(Human, Murder.humanid == Human.id) \
+                        .filter(Human.name == data.get("human_name")) \
+                        .all()
+
+    print(killed_aliens)
+    return jsonify(killed_aliens)
+
+@app.route('/api/display/q5/', methods=['GET'])
+def aliens_q5():
+
+    data = request.args
+    killed_aliens = db.session.query(Alien.name) \
+                        .join(Murder, Alien.id == Murder.alienid) \
+                        .join(Human, Murder.humanid == Human.id) \
+                        .filter(Human.name == data.get("human_name")) \
+                        .all()
+
+    print(killed_aliens)
+    return jsonify(killed_aliens)
 
 @app.route('/api/display/q6', methods=['GET'])
 def aliens_q6():
@@ -54,7 +131,7 @@ def aliens_q6():
     alien_abducers = db.session.query(Alien.id, Alien.name.label("alien_name")) \
                         .join(Abduction, Alien.id == Abduction.alienid) \
                         .filter(Abduction.date > data.get("start_date"), Abduction.date < data.get("end_date")) \
-                        .group_by(Alien.id, Alien.name) \
+                        .group_by(Alien.name) \
                         .having(db.func.count(Abduction.humanid) >= data.get("count")) \
                         .all() #note that func.count() deduplicates values by default, no need to worry about UNIQUE humanid.
 
@@ -146,14 +223,13 @@ def aliens_q11():
 def aliens_q12():
 
     data = request.args
-    experiments = db.session.query(Experiment.id, db.func.count(Alien.id)) \
-                        .filter(Experiment.date > data.get("start_date"), Experiment.date < data.get("end_date")) \
-                        .join(Human, Experiment.humanid == Human.id) \
-                        .filter(Human.name == data.get("human_name")) \
+    spaceships = db.session.query(Spaceship.title, db.func.count(Experiment.id)) \
+                        .join(Experiment, Spaceship.id == Experiment.shipid) \
                         .join(Alien, Experiment.aliens) \
-                        .group_by(Experiment.id) \
-                        .having(db.func.count(Alien.id) >= data.get("count")) \
+                        .filter(Alien.name == data.get("alien_name")) \
+                        .group_by(Spaceship.title) \
+                        .order_by(db.func.count(Experiment.id)) \
                         .all()
     
-    print(experiments)
-    return jsonify(experiments)
+    print(spaceships)
+    return jsonify(spaceships)

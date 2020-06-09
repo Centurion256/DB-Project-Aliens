@@ -125,3 +125,4 @@ class Murder(db.Model):
 
     human = db.relation("Human", backref="murder")
     alien = db.relation("Alien", backref="murder")
+

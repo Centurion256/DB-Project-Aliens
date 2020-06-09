@@ -11,18 +11,23 @@ import AlienShow from "./components/alien_show";
 import AdminRequest from "./components/admin_request";
 import HumanRequest from "./components/human_request";
 import AlienRequest from "./components/alien_request";
+import AlienActions from "./components/alien_actions";
+import HumanActions from "./components/human_actions";
 import {FillAlienTable, FillAbductionTable, FillConvictionLogTable, FillExcursionHumanTable, FillExcursionTable,
   FillExperimentAlienTable, FillExperimentTable, FillHumanTable, FillMurderTable, FillRedemptionTable,
   FillSpaceshipTable, FillTransportationTable} from "./components/fill_tables";
 import {Q1Request, Q2Request, Q3Request, Q4Request, Q5Request, Q6Request, Q7Request, Q8Request, Q9Request, Q10Request,
   Q11Request, Q12Request} from "./components/request_results";
-
+import {AlienExperimentConduct, AlienHostExcursion, AlienHumanAbduct, AlienHumanTransport,
+  HumanAlienKill, HumanSpaceshipEscape} from "./components/actions_results";
+import {ShowAbduction, ShowAlien, ShowConviction_Log, ShowExcursion, ShowExcursion_Human, ShowExperiment,
+  ShowExperiment_Alien, ShowHuman, ShowMurder, ShowRedemption, ShowSpaceship, ShowTransportation} from "./components/show_tables";
 
 function App() {
   return (
+      <BrowserRouter>
       <div className="App">
         <div>
-          <BrowserRouter>
             <Switch>
               <Route path="/" component={Login} exact/>
                 <Route path="/alien_home" component={AlienHome} exact/>
@@ -65,10 +70,34 @@ function App() {
                 <Route path="/request_q11" component={Q11Request} exact/>
                 <Route path="/request_q12" component={Q12Request} exact/>
 
+                <Route path="/actions_alien" component={AlienActions} exact/>
+                <Route path="/actions_human" component={HumanActions} exact/>
+
+                <Route path="/alien_host_excursion" component={AlienHostExcursion} exact/>
+                <Route path="/alien_abduct_human" component={AlienHumanAbduct} exact/>
+                <Route path="/alien_conduct_experiment" component={AlienExperimentConduct} exact/>
+                <Route path="/alien_transport_human" component={AlienHumanTransport} exact/>
+                <Route path="/human_escape_spaceship" component={HumanSpaceshipEscape} exact/>
+                <Route path="/human_kill_alien" component={HumanAlienKill} exact/>
+
+
+                <Route path="/showing_alien_table" component={ShowAlien} exact/>
+                <Route path="/showing_spaceship_table" component={ShowSpaceship} exact/>
+                <Route path="/showing_excursion_table" component={ShowExcursion} exact/>
+                <Route path="/showing_human_table" component={ShowHuman} exact/>
+                <Route path="/showing_experiment_table" component={ShowExperiment} exact/>
+                <Route path="/showing_transportation_table" component={ShowTransportation} exact/>
+                <Route path="/showing_redemption_table" component={ShowRedemption} exact/>
+                <Route path="/showing_murder_table" component={ShowMurder} exact/>
+                <Route path="/showing_abduction_table" component={ShowAbduction} exact/>
+                <Route path="/showing_conviction_log_table" component={ShowConviction_Log} exact/>
+                <Route path="/showing_experiment_alien_table" component={ShowExperiment_Alien} exact/>
+                <Route path="/showing_excursion_human_table" component={ShowExcursion_Human} exact/>
+
             </Switch>
-          </BrowserRouter>
         </div>
       </div>
+    </BrowserRouter>
   );
 }
 

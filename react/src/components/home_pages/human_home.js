@@ -24,6 +24,7 @@ class NavigationBar extends Component {
                         <li><Link to="/">Back to Login</Link></li>
                         <li><Link to="/request_human">Request results</Link></li>
                         <li><Link to="/show_human">Show tables</Link></li>
+                        <li><Link to="/actions_human">Actions</Link></li>
                     </ul>
                 </nav>
             </div>

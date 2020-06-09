@@ -11,7 +11,12 @@ FROM Human;
 -- TODO: Fill the table here;
 INSERT INTO human (name, status)
 VALUES
-    ('Bobba Fett', 1);
+    ('Bobba Fett', 1),
+    ('Han Solo', 1);
+
+INSERT INTO human (name, status)
+VALUES
+    ('Han Solo', 1);
 
 CREATE TABLE IF NOT EXISTS alien (
     id serial PRIMARY KEY,
@@ -21,7 +26,12 @@ CREATE TABLE IF NOT EXISTS alien (
 -- TODO: Fill the table here;
 INSERT INTO alien (name, status)
 VALUES
-    ('Chewbacca', 0);
+    ('Chewbacca', 0),
+    ('Jabba Hutt', 0);
+
+INSERT INTO alien (name, status)
+VALUES
+    ('Jabba Hutt', 0);
 
 SELECT *
 FROM alien;
@@ -48,7 +58,12 @@ CREATE TABLE IF NOT EXISTS abduction (
 -- TODO: FIll the table here;
 INSERT INTO abduction (humanId, shipId, alienId)
 VALUES 
-    (1,1,1);
+    (1,1,1),
+    (2,1,2);
+
+INSERT INTO abduction (humanId, shipId, alienId)
+VALUES 
+    (2,1,2);
 
 SELECT *
 FROM abduction;
@@ -112,7 +127,6 @@ CREATE TABLE IF NOT EXISTS excursion (
     date date NOT NULL DEFAULT current_date
 );
 
-DROP TABLE excursion;
 -- TODO: FIll the table here;
 SELECT *
 FROM excursion;
