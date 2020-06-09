@@ -79,9 +79,7 @@ def aliens_q7():
 @app.route('/api/display/q8', methods=['GET'])
 def aliens_q8():
 
-    
     data = request.args
-    print(data.get("start_date"))
     excursions = db.session.query(Excursion.id, Excursion.date) \
                         .filter(Excursion.date > data.get("start_date"), Excursion.date < data.get("end_date")) \
                         .join(Human, Excursion.humans) \
@@ -98,3 +96,64 @@ def aliens_q8():
     result = excursions.union(experiments).all()
     print(result)
     return jsonify(result)
+
+
+@app.route('/api/display/q9', methods=['GET'])
+def aliens_q9():
+
+    data = request.args
+    excursions = db.session.query(Excursion.id, db.func.count(Human.id)) \
+                        .filter(Excursion.date > data.get("start_date"), Excursion.date < data.get("end_date")) \
+                        .join(Alien, Excursion.alienid == Alien.id) \
+                        .filter(Alien.name == data.get("alien_name")) \
+                        .join(Human, Excursion.humans) \
+                        .group_by(Excursion.id) \
+                        .having(db.func.count(Human.id) >= data.get("count")) \
+                        .all()
+    
+    print(excursions)
+    return jsonify(excursions)
+
+
+@app.route('/api/display/q10', methods=['GET'])
+def aliens_q10():
+
+    data = request.args
+    experiments = db.session.query(Experiment.id, db.func.count(Alien.id)) \
+                        .filter(Experiment.date > data.get("start_date"), Experiment.date < data.get("end_date")) \
+                        .join(Human, Experiment.humanid == Human.id) \
+                        .filter(Human.name == data.get("human_name")) \
+                        .join(Alien, Experiment.aliens) \
+                        .group_by(Experiment.id) \
+                        .having(db.func.count(Alien.id) >= data.get("count")) \
+                        .all()
+    
+    print(experiments)
+    return jsonify(experiments)
+
+@app.route('/api/display/q11', methods=['GET'])
+def aliens_q11():
+
+    abductions = db.session.query(db.extract('month', Abduction.date), db.func.count(Abduction.id)) \
+                        .group_by(db.extract('month', Abduction.date)) \
+                        .all()
+    
+    print(abductions)
+    return jsonify(abductions)
+
+#TODO
+@app.route('/api/display/q12', methods=['GET'])
+def aliens_q12():
+
+    data = request.args
+    experiments = db.session.query(Experiment.id, db.func.count(Alien.id)) \
+                        .filter(Experiment.date > data.get("start_date"), Experiment.date < data.get("end_date")) \
+                        .join(Human, Experiment.humanid == Human.id) \
+                        .filter(Human.name == data.get("human_name")) \
+                        .join(Alien, Experiment.aliens) \
+                        .group_by(Experiment.id) \
+                        .having(db.func.count(Alien.id) >= data.get("count")) \
+                        .all()
+    
+    print(experiments)
+    return jsonify(experiments)

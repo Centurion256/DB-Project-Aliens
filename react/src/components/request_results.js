@@ -456,6 +456,24 @@ class Q9 extends Component {
 }
 
 class Q10 extends Component {
+
+    handleSubmit = (event) => {
+
+        event.preventDefault();
+        console.log("In handleSubmit");
+        let data = new FormData(event.target);
+        axios({ //Request data from the server
+            method: 'get',
+            url: '/api/display/q10',
+            params: {
+                "count": data.get("count"),
+                "human_name": data.get("human_name"),
+                "start_date": data.get("start_date"),
+                "end_date": data.get("end_date")
+            }})
+            .then(res => console.log(JSON.stringify(res.data))); //do something with the data (for example setState)
+    }
+
     render() {
         return (
             <div className="request_results_container">
@@ -463,24 +481,24 @@ class Q10 extends Component {
                     the specified period (from date F to date T) the experiment was performed on him/her by at least N aliens;</h1>
                 <form className="request_form" onSubmit={this.handleSubmit}>
                     <label className="request_label">
-                        HumanID:
-                        <input type="text" className="request_input"/>
+                        Human Name:
+                        <input type="text" className="request_input" name="human_name"/>
                     </label>
                     <label className="request_label">
                         From Date:
-                        <input className="filling_input" type="date" id="start" name="trip-start"
+                        <input className="filling_input" type="date" id="start" name="start_date"
                                defaultValue="2018-07-22"
                                 />
                     </label>
                     <label className="request_label">
                         To Date:
-                        <input className="request_input" type="date" id="start" name="trip-start"
+                        <input className="request_input" type="date" id="start" name="end_date"
                                defaultValue="2018-07-22"
                                 />
                     </label>
                     <label className="request_label">
                         Number of aliens:
-                        <input type="text" className="request_input"/>
+                        <input type="text" className="request_input" name="count"/>
                     </label>
                     <input type="submit" value="Send" className="send_button"/>
                 </form>
@@ -490,6 +508,18 @@ class Q10 extends Component {
 }
 
 class Q11 extends Component {
+
+    handleSubmit = (event) => {
+
+        event.preventDefault();
+        console.log("In handleSubmit");
+        axios({ //Request data from the server
+            method: 'get',
+            url: '/api/display/q11',
+           })
+            .then(res => console.log(JSON.stringify(res.data))); //do something with the data (for example setState)
+    }
+
     render() {
         return (
             <div className="request_results_container">
@@ -503,6 +533,23 @@ class Q11 extends Component {
 }
 
 class Q12 extends Component {
+
+    handleSubmit = (event) => {
+
+        event.preventDefault();
+        console.log("In handleSubmit");
+        let data = new FormData(event.target);
+        axios({ //Request data from the server
+            method: 'get',
+            url: '/api/display/q12',
+            params: {
+                "human_name": data.get("alien_name"),
+                "start_date": data.get("start_date"),
+                "end_date": data.get("end_date")
+            }})
+            .then(res => console.log(JSON.stringify(res.data))); //do something with the data (for example setState)
+    }
+
     render() {
         return (
             <div className="request_results_container">
@@ -510,18 +557,18 @@ class Q12 extends Component {
                     ship with the participation of this (alien A) during the specified period (from date F to date T);</h1>
                 <form className="request_form" onSubmit={this.handleSubmit}>
                     <label className="request_label">
-                        AlienID:
-                        <input type="text" className="request_input"/>
+                        Alien Name:
+                        <input type="text" className="request_input" name="alien_name"/>
                     </label>
                     <label className="request_label">
                         From Date:
-                        <input className="filling_input" type="date" id="start" name="trip-start"
+                        <input className="filling_input" type="date" id="start" name="start_date"
                                defaultValue="2018-07-22"
                                 />
                     </label>
                     <label className="request_label">
                         To Date:
-                        <input className="request_input" type="date" id="start" name="trip-start"
+                        <input className="request_input" type="date" id="start" name="end_date"
                                defaultValue="2018-07-22"
                                 />
                     </label>
