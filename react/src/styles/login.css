@@ -1,12 +1,12 @@
 .login_page_container {
     background-color: #b1afaf;
-    height: 1000px;
+    height: 1100px;
     width: 100%;
 }
 
-body, html {
-    height: 100%;
-}
+/*body, html {*/
+/*    height: 100%;*/
+/*}*/
 
 .login_page_text {
     text-align: center;

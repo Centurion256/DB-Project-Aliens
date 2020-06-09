@@ -22,7 +22,6 @@ class NavigationBar extends Component {
                 <nav className="nav-wrapper">
                     <ul className="right">
                         <li><Link to="/">Back to Login</Link></li>
-                        <li><Link to="/actions_alien">Actions</Link></li>
                         <li><Link to="/request_alien">Request results</Link></li>
                         <li><Link to="/show_alien">Show tables</Link></li>
                     </ul>

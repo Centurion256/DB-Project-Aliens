@@ -74,11 +74,6 @@ class AlienShowResults extends Component {
                             Abduction
                         </Button>
                     </Link>
-                    <Link to="/showing_experiment_alien_table">
-                        <Button class="button" renderAs="button">
-                            Experiment_Alien
-                        </Button>
-                    </Link>
                 </div>
             </div>
         )

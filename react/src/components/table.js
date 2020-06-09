@@ -1,4 +1,6 @@
 import React from 'react';
+import "../styles/table.css"
+
 
 export class SQLTable extends React.Component {
     render() {
@@ -18,7 +20,7 @@ export class SQLTable extends React.Component {
                         {this.props.data.map((row, index) => (
                             <tr key={index}>
                                 {row.map((element, subindex) => (
-                                    <td key={subindex}>{element}</td>
+                                    <td className="table_data" key={subindex}>{element}</td>
                                 ))}
                             </tr>
                         ))}

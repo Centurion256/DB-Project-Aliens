@@ -85,21 +85,6 @@ class AdminShowResults extends Component {
                             Abduction
                         </Button>
                     </Link>
-                    <Link to="/showing_conviction_log_table">
-                        <Button class="button" renderAs="button">
-                            Conviction_Log
-                        </Button>
-                    </Link>
-                    <Link to="/showing_experiment_alien_table">
-                        <Button class="button" renderAs="button">
-                            Experiment_Alien
-                        </Button>
-                    </Link>
-                    <Link to="/showing_excursion_human_table">
-                        <Button class="button" renderAs="button">
-                            Excursion_Human
-                        </Button>
-                    </Link>
                 </div>
             </div>
         )

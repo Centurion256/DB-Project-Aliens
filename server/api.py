@@ -1,9 +1,10 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
 from os import environ
 from sqlsetup import db
-from tables import Alien, Human, Spaceship, Abduction, Excursion, Experiment, Murder, Transportation, Redemption
+from tables import Alien, Human, Spaceship, Abduction, Excursion, Experiment, Murder, Transportation, Redemption, Excursion_human, Experiment_alien
 from datetime import date
+from re import findall
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DBURI')
@@ -233,3 +234,228 @@ def aliens_q12():
     
     print(spaceships)
     return jsonify(spaceships)
+
+
+# 
+# 
+# 
+# FILL REQUESTS
+# 
+# 
+# 
+
+@app.route('/api/fill/alien', methods=['POST'])
+def fill_alien():
+    
+    data = request.form
+    # print(data["name"], data["status"])
+    new_alien = Alien(name=data["name"], status=data["status"])
+    print(new_alien)
+    db.session.add(new_alien)
+    db.session.commit()
+    return Response(status='200')
+
+
+@app.route('/api/fill/human', methods=['POST'])
+def fill_human():
+    
+    data = request.form
+    new_human = Human(name=data["name"], status=data["status"])
+    db.session.add(new_human)
+    db.session.commit()
+    return Response(status='200')
+
+
+@app.route('/api/fill/ship', methods=['POST'])
+def fill_ship():
+    data = request.form
+    new_ship = Spaceship(title=data["title"])
+    db.session.add(new_ship)
+    db.session.commit()
+    return Response(status='200')
+
+
+@app.route('/api/fill/excursion', methods=['POST'])
+def fill_excursion():
+
+    data = request.form
+    ship = Spaceship.query.get_or_404(data["ship_id"])
+    alien = Alien.query.get_or_404(data["alien_id"])
+
+    humans = findall("\d+", data["humans"])
+    new_object = Excursion(alienid=data["alien_id"], shipid=data["ship_id"])
+    for elem in humans:
+
+        human = Human.query.get_or_404(elem)
+        new_object.humans.append(human)
+
+    print(new_object.humans)
+    db.session.add(new_object)
+    db.session.commit()
+    return Response(status='200')
+
+
+
+@app.route('/api/fill/redemption', methods=['POST'])
+def fill_redemption():
+
+    data = request.form
+    # print(data["name"], data["status"])
+    #validify
+    ship = Spaceship.query.get_or_404(data["ship_id"])
+    human = Human.query.get_or_404(data["human_id"])
+
+    new_object = Redemption(humanid=data["human_id"], shipid=data["ship_id"])
+    db.session.add(new_object)
+    db.session.commit()
+    return Response(status='200')
+
+
+
+# @app.route('/api/fill/murder', methods=['POST'])
+# def fill_murder():
+#     print(request.form)
+    
+#     return Response(status='200')
+
+
+@app.route('/api/fill/transportation', methods=['POST'])
+def fill_transportation():
+    data = request.form
+    alien = Alien.query.get_or_404(data["alien_id"])
+    human = Human.query.get_or_404(data["human_id"])
+    from_ship = Spaceship.query.get_or_404(data["from_ship_id"])
+    to_ship = Spaceship.query.get_or_404(data["to_ship_id"])
+
+    new_object = Transportation(humanid=data["human_id"], alienid=data["alien_id"], fromShipId=data["from_ship_id"], toShipId=data["to_ship_id"])
+    db.session.add(new_object)
+    db.session.commit()
+    
+    return Response(status='200')
+
+
+@app.route('/api/fill/abduction', methods=['POST'])
+def fill_abduction():
+
+    data = request.form
+    #validify
+    alien = Alien.query.get_or_404(data["alien_id"])
+    human = Human.query.get_or_404(data["human_id"])
+    ship = Spaceship.query.get_or_404(data["ship_id"])
+
+    new_object = Abduction(humanid=data["human_id"], alienid=data["alien_id"], shipid=data["ship_id"])
+    db.session.add(new_object)
+    db.session.commit()
+    return Response(status='200')
+
+
+@app.route('/api/fill/experiment', methods=['POST'])
+def fill_experiment():
+    
+    data = request.form
+    #validify
+    ship = Spaceship.query.get_or_404(data["ship_id"])
+    human = Human.query.get_or_404(data["human_id"])
+    new_object = Experiment(humanid=data["human_id"], shipid=data["ship_id"])
+
+    aliens = findall("\d+", data["aliens"])
+    for alien in aliens:
+        alien_object = Alien.query.get_or_404(alien)
+        new_object.aliens.append(alien_object)
+
+    db.session.add(new_object)
+    db.session.commit()
+    return Response(status='200')
+
+
+
+
+#############################################################
+#                      DISPLAY TABLES                       #
+#                                                           #
+#############################################################
+
+@app.route('/api/display/alien', methods=['GET'])
+def display_aliens():
+    
+    aliens = db.session.query(Alien.id, Alien.name) \
+                         .all()
+    
+    return jsonify(aliens)
+
+@app.route('/api/display/human', methods=['GET'])
+def display_humans():
+    
+    humans = db.session.query(Human.id, Human.name) \
+                         .all()
+    
+    return jsonify(humans)
+
+@app.route('/api/display/spaceship', methods=['GET'])
+def display_spaceships():
+    
+    spaceships = db.session.query(Spaceship.id, Spaceship.title) \
+                         .all()
+    
+    return jsonify(spaceships)
+
+@app.route('/api/display/abduction', methods=['GET'])
+def display_abductions():
+    
+    abductions = db.session.query(Abduction.id, Human.name, Alien.name.label("alien_name"), Spaceship.title, Abduction.date) \
+                         .join(Human, Abduction.humanid == Human.id) \
+                         .join(Alien, Abduction.alienid == Alien.id) \
+                         .join(Spaceship, Abduction.shipid == Spaceship.id) \
+                         .all()
+    
+    return jsonify(abductions)
+
+@app.route('/api/display/excursion', methods=['GET'])
+def display_excursions():
+    
+    excursions = db.session.query(Excursion.id, Excursion.date, Human.name, Alien.name) \
+                         .join(Human, Excursion.humans) \
+                         .join(Alien, Excursion.alienid == Alien.id) \
+                         .all()
+    
+    return jsonify(excursions)
+
+@app.route('/api/display/experiment', methods=['GET'])
+def display_experiments():
+    
+    experiments = db.session.query(Experiment.id, Experiment.date, Human.name, Alien.name) \
+                         .join(Alien, Experiment.aliens) \
+                         .join(Human, Experiment.humanid == Human.id) \
+                         .all()
+    
+    return jsonify(experiments)
+
+@app.route('/api/display/transportation', methods=['GET'])
+def display_transportations():
+    
+    transportations = db.session.query(Transportation.id, Human.name, Alien.name, Transportation.fromShipId, Transportation.toShipId, Transportation.date) \
+                         .join(Human, Transportation.humanid == Human.id) \
+                         .join(Alien, Transportation.alienid == Alien.id) \
+                         .all()
+    
+    return jsonify(transportations)
+
+@app.route('/api/display/murder', methods=['GET'])
+def display_murders():
+    
+    murders = db.session.query(Murder.id, Human.name, Alien.name, Murder.date) \
+                         .join(Human, Murder.humanid == Human.id) \
+                         .join(Alien, Murder.alienid == Alien.id) \
+                         .all()
+    
+    return jsonify(murders)
+
+@app.route('/api/display/redemption', methods=['GET'])
+def display_redemptions():
+    
+    redemptions = db.session.query(Redemption.id, Human.name, Spaceship.title, Redemption.date) \
+                         .join(Human, Redemption.humanid == Human.id) \
+                         .join(Spaceship, Redemption.shipid == Spaceship.id) \
+                         .all()
+    
+    return jsonify(redemptions)

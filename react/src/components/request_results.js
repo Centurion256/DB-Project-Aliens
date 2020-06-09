@@ -165,7 +165,7 @@ class Q1 extends Component {
                         <input type="submit" className="send_button"/>
                     </form>
                 </div>
-                <div>
+                <div className="sql_table">
                     {this.state.data_recieved && <SQLTable data={this.state.data} columns={["Humans"]} />}
                 </div>
             </div>
@@ -226,7 +226,7 @@ class Q2 extends Component {
                         <input type="submit" value="Send" className="send_button"/>
                     </form>
                 </div>
-                <div>
+                <div className="sql_table">
                     {this.state.data_recieved && <SQLTable data={this.state.data} columns={["Spaceship", "Date"]} />}
                 </div>
             </div>
@@ -292,7 +292,7 @@ class Q3 extends Component {
                         <input type="submit" value="Send" className="send_button"/>
                     </form>
                 </div>
-                <div>
+                <div className="sql_table">
                     {this.state.data_recieved && <SQLTable data={this.state.data} columns={["Alien", "Abduction Count"]} />}
                 </div>
             </div>
@@ -355,7 +355,7 @@ class Q4 extends Component {
                         <input type="submit" value="Send" className="send_button"/>
                     </form>
                 </div>
-                <div>
+                <div className="sql_table">
                     {this.state.data_recieved && <SQLTable data={this.state.data} columns={["Alien"]} />}
                 </div>
             </div>
@@ -402,7 +402,7 @@ class Q5 extends Component {
                         <input type="submit" value="Send" className="send_button"/>
                     </form>
                 </div>
-                <div>
+                <div className="sql_table">
                     {this.state.data_recieved && <SQLTable data={this.state.data} columns={["Alien"]} />}
                 </div>
             </div>
@@ -461,7 +461,7 @@ class Q6 extends Component {
                         <input type="submit" value="Send" className="send_button"/>
                     </form>
                 </div>
-                <div>
+                <div className="sql_table">
                     {this.state.data_recieved && <SQLTable data={this.state.data} columns={["ID", "Alien"]} />}
                 </div>
             </div>
@@ -520,7 +520,7 @@ class Q7 extends Component {
                         <input type="submit" value="Send" className="send_button"/>
                     </form>
                 </div>
-                <div>
+                <div className="sql_table">
                     {this.state.data_recieved && <SQLTable data={this.state.data} columns={["ID", "Human"]} />}
                 </div>
             </div>
@@ -585,7 +585,7 @@ class Q8 extends Component {
                         <input type="submit" value="Send" className="send_button"/>
                     </form>
                 </div>
-                <div>
+                <div className="sql_table">
                     {this.state.data_recieved && <SQLTable data={this.state.data} columns={["Experiment/Excursion ID", "Experiment/Excursion Date"]} />}
                 </div>
             </div>
@@ -652,7 +652,7 @@ class Q9 extends Component {
                         <input type="submit" value="Send" className="send_button"/>
                     </form>
                 </div>
-                <div>
+                <div className="sql_table">
                     {this.state.data_recieved && <SQLTable data={this.state.data} columns={["Excursion ID", "Popular Excursions"]} />}
                 </div>
             </div>
@@ -719,7 +719,7 @@ class Q10 extends Component {
                         <input type="submit" value="Send" className="send_button"/>
                     </form>
                 </div>
-                <div>
+                <div className="sql_table">
                     {this.state.data_recieved && <SQLTable data={this.state.data} columns={["Experiment ID", "Popular Experiments"]} />}
                 </div>
             </div>
@@ -759,7 +759,7 @@ class Q11 extends Component {
                         <input type="submit" value="Send" className="send_button"/>
                     </form>
                 </div>
-                <div>
+                <div className="sql_table">
                     {this.state.data_recieved && <SQLTable data={this.state.data} columns={["Month", "Abductions"]} />}
                 </div>
             </div>
@@ -821,7 +821,7 @@ class Q12 extends Component {
                         <input type="submit" value="Send" className="send_button"/>
                     </form>
                 </div>
-                <div>
+                <div className="sql_table">
                     {this.state.data_recieved && <SQLTable data={this.state.data} columns={["Spaceship", "Experiments"]} />}
                 </div>
             </div>

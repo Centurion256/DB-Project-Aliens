@@ -55,6 +55,10 @@ CREATE TABLE IF NOT EXISTS abduction (
     alienId int NOT NULL REFERENCES alien (id) ON DELETE RESTRICT,
     date date NOT NULL DEFAULT current_date
 );
+
+SELECT * 
+FROM abduction;
+
 -- TODO: FIll the table here;
 INSERT INTO abduction (humanId, shipId, alienId)
 VALUES 
@@ -127,6 +131,12 @@ CREATE TABLE IF NOT EXISTS excursion (
     date date NOT NULL DEFAULT current_date
 );
 
+SELECT *
+FROM excursion;
+
+SELECT *
+FROM excursion_human;
+
 -- TODO: FIll the table here;
 SELECT *
 FROM excursion;
@@ -169,3 +179,17 @@ UNION ALL
     FROM transportation T
 );
 
+CREATE INDEX alien_name
+ON alien(name);
+
+CREATE INDEX spaceship_title
+ON spaceship(title);
+
+CREATE INDEX human_name
+ON human(name);
+
+CREATE INDEX abduction_human_alien
+ON abduction(humanid, alienid);
+
+CREATE INDEX redemption_human_spaceship
+ON redemption(humanid, shipid);

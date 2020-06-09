@@ -35,7 +35,7 @@ class NavigationBar extends Component {
 class AlienRequestChoose extends Component {
     render() {
         return (
-            <div className="admin_choose_request">
+            <div className="alien_choose_request">
                 <h1 className="admin_request_text">Alien please choose request: </h1>
                 <div className="admin_request_buttons">
                     <Link to="/request_q1">
