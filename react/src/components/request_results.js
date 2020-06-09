@@ -595,6 +595,14 @@ class Q8 extends Component {
 
 class Q9 extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+            data: null,
+            data_recieved: false
+        }
+    }
+
     handleSubmit = (event) => {
 
         event.preventDefault();
@@ -609,43 +617,58 @@ class Q9 extends Component {
                 "start_date": data.get("start_date"),
                 "end_date": data.get("end_date")
             }})
-            .then(res => console.log(JSON.stringify(res.data))); //do something with the data (for example setState)
+            .then(res => res.data)
+            .then(data => this.setState({data, data_recieved: true}))
+            // .then(res => console.log(JSON.stringify(res.data))); //do something with the data (for example setState)
     }
 
     render() {
         return (
-            <div className="request_results_container">
-                <h1 className="request_text">For (alien A) and each excursion he conducted, find how many times during the specified
-                    period (from date F to date T) he conducted an excursion for at least (N) people;</h1>
-                <form className="request_form" onSubmit={this.handleSubmit}>
-                    <label className="request_label">
-                        Alien Name:
-                        <input type="text" className="request_input" name="alien_name"/>
-                    </label>
-                    <label className="request_label">
-                        From Date:
-                        <input className="filling_input" type="date" id="start" name="start_date"
-                               defaultValue="2018-07-22"
-                                />
-                    </label>
-                    <label className="request_label">
-                        To Date:
-                        <input className="request_input" type="date" id="start" name="end_date"
-                               defaultValue="2018-07-22"
-                                />
-                    </label>
-                    <label className="request_label">
-                        Number of people:
-                        <input type="text" className="request_input" name="count"/>
-                    </label>
-                    <input type="submit" value="Send" className="send_button"/>
-                </form>
+            <div>
+                <div className="request_results_container">
+                    <h1 className="request_text">For (alien A) and each excursion he conducted, find how many times during the specified
+                        period (from date F to date T) he conducted an excursion for at least (N) people;</h1>
+                    <form className="request_form" onSubmit={this.handleSubmit}>
+                        <label className="request_label">
+                            Alien Name:
+                            <input type="text" className="request_input" name="alien_name"/>
+                        </label>
+                        <label className="request_label">
+                            From Date:
+                            <input className="filling_input" type="date" id="start" name="start_date"
+                                defaultValue="2018-07-22"
+                                    />
+                        </label>
+                        <label className="request_label">
+                            To Date:
+                            <input className="request_input" type="date" id="start" name="end_date"
+                                defaultValue="2018-07-22"
+                                    />
+                        </label>
+                        <label className="request_label">
+                            Number of people:
+                            <input type="text" className="request_input" name="count"/>
+                        </label>
+                        <input type="submit" value="Send" className="send_button"/>
+                    </form>
+                </div>
+                <div>
+                    {this.state.data_recieved && <SQLTable data={this.state.data} columns={["Excursion ID", "Popular Excursions"]} />}
+                </div>
             </div>
         )
     }
 }
 
 class Q10 extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            data: null,
+            data_recieved: false
+        }
+    }
 
     handleSubmit = (event) => {
 
@@ -661,43 +684,58 @@ class Q10 extends Component {
                 "start_date": data.get("start_date"),
                 "end_date": data.get("end_date")
             }})
-            .then(res => console.log(JSON.stringify(res.data))); //do something with the data (for example setState)
+            .then(res => res.data)
+            .then(data => this.setState({data, data_recieved: true}))
+            // .then(res => console.log(JSON.stringify(res.data))); //do something with the data (for example setState)
     }
 
     render() {
         return (
-            <div className="request_results_container">
-                <h1 className="request_text">For (human H) and each experiment in which he/she participated, find how many times during
-                    the specified period (from date F to date T) the experiment was performed on him/her by at least N aliens;</h1>
-                <form className="request_form" onSubmit={this.handleSubmit}>
-                    <label className="request_label">
-                        Human Name:
-                        <input type="text" className="request_input" name="human_name"/>
-                    </label>
-                    <label className="request_label">
-                        From Date:
-                        <input className="filling_input" type="date" id="start" name="start_date"
-                               defaultValue="2018-07-22"
-                                />
-                    </label>
-                    <label className="request_label">
-                        To Date:
-                        <input className="request_input" type="date" id="start" name="end_date"
-                               defaultValue="2018-07-22"
-                                />
-                    </label>
-                    <label className="request_label">
-                        Number of aliens:
-                        <input type="text" className="request_input" name="count"/>
-                    </label>
-                    <input type="submit" value="Send" className="send_button"/>
-                </form>
+            <div>
+                <div className="request_results_container">
+                    <h1 className="request_text">For (human H) and each experiment in which he/she participated, find how many times during
+                        the specified period (from date F to date T) the experiment was performed on him/her by at least N aliens;</h1>
+                    <form className="request_form" onSubmit={this.handleSubmit}>
+                        <label className="request_label">
+                            Human Name:
+                            <input type="text" className="request_input" name="human_name"/>
+                        </label>
+                        <label className="request_label">
+                            From Date:
+                            <input className="filling_input" type="date" id="start" name="start_date"
+                                defaultValue="2018-07-22"
+                                    />
+                        </label>
+                        <label className="request_label">
+                            To Date:
+                            <input className="request_input" type="date" id="start" name="end_date"
+                                defaultValue="2018-07-22"
+                                    />
+                        </label>
+                        <label className="request_label">
+                            Number of aliens:
+                            <input type="text" className="request_input" name="count"/>
+                        </label>
+                        <input type="submit" value="Send" className="send_button"/>
+                    </form>
+                </div>
+                <div>
+                    {this.state.data_recieved && <SQLTable data={this.state.data} columns={["Experiment ID", "Popular Experiments"]} />}
+                </div>
             </div>
         )
     }
 }
 
 class Q11 extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            data: null,
+            data_recieved: false
+        }
+    }
 
     handleSubmit = (event) => {
 
@@ -707,22 +745,37 @@ class Q11 extends Component {
             method: 'get',
             url: '/api/display/q11',
            })
-            .then(res => console.log(JSON.stringify(res.data))); //do something with the data (for example setState)
+           .then(res => res.data)
+           .then(data => this.setState({data, data_recieved: true}))
+            // .then(res => console.log(JSON.stringify(res.data))); //do something with the data (for example setState)
     }
 
     render() {
         return (
-            <div className="request_results_container">
-                <h1 className="request_text">Find the total number of abductions by months</h1>
-                <form className="request_form" onSubmit={this.handleSubmit}>
-                    <input type="submit" value="Send" className="send_button"/>
-                </form>
+            <div>
+                <div className="request_results_container">
+                    <h1 className="request_text">Find the total number of abductions by months</h1>
+                    <form className="request_form" onSubmit={this.handleSubmit}>
+                        <input type="submit" value="Send" className="send_button"/>
+                    </form>
+                </div>
+                <div>
+                    {this.state.data_recieved && <SQLTable data={this.state.data} columns={["Month", "Abductions"]} />}
+                </div>
             </div>
         )
     }
 }
 
 class Q12 extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            data: null,
+            data_recieved: false
+        }
+    }
 
     handleSubmit = (event) => {
 
@@ -737,33 +790,40 @@ class Q12 extends Component {
                 "start_date": data.get("start_date"),
                 "end_date": data.get("end_date")
             }})
-            .then(res => console.log(JSON.stringify(res.data))); //do something with the data (for example setState)
+            .then(res => res.data)
+            .then(data => this.setState({data, data_recieved: true}))
+            // .then(res => console.log(JSON.stringify(res.data))); //do something with the data (for example setState)
     }
 
     render() {
         return (
-            <div className="request_results_container">
-                <h1 className="request_text">Find ships in descending order of the total number of experiments that were conducted on
-                    ship with the participation of this (alien A) during the specified period (from date F to date T);</h1>
-                <form className="request_form" onSubmit={this.handleSubmit}>
-                    <label className="request_label">
-                        Alien Name:
-                        <input type="text" className="request_input" name="alien_name"/>
-                    </label>
-                    <label className="request_label">
-                        From Date:
-                        <input className="filling_input" type="date" id="start" name="start_date"
-                               defaultValue="2018-07-22"
-                                />
-                    </label>
-                    <label className="request_label">
-                        To Date:
-                        <input className="request_input" type="date" id="start" name="end_date"
-                               defaultValue="2018-07-22"
-                                />
-                    </label>
-                    <input type="submit" value="Send" className="send_button"/>
-                </form>
+            <div>
+                <div className="request_results_container">
+                    <h1 className="request_text">Find ships in descending order of the total number of experiments that were conducted on
+                        ship with the participation of this (alien A) during the specified period (from date F to date T);</h1>
+                    <form className="request_form" onSubmit={this.handleSubmit}>
+                        <label className="request_label">
+                            Alien Name:
+                            <input type="text" className="request_input" name="alien_name"/>
+                        </label>
+                        <label className="request_label">
+                            From Date:
+                            <input className="filling_input" type="date" id="start" name="start_date"
+                                defaultValue="2018-07-22"
+                                    />
+                        </label>
+                        <label className="request_label">
+                            To Date:
+                            <input className="request_input" type="date" id="start" name="end_date"
+                                defaultValue="2018-07-22"
+                                    />
+                        </label>
+                        <input type="submit" value="Send" className="send_button"/>
+                    </form>
+                </div>
+                <div>
+                    {this.state.data_recieved && <SQLTable data={this.state.data} columns={["Spaceship", "Experiments"]} />}
+                </div>
             </div>
         )
     }

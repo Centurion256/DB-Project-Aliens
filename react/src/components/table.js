@@ -2,7 +2,8 @@ import React from 'react';
 
 export class SQLTable extends React.Component {
     render() {
-        console.log(this.props.data);
+
+        // console.log(this.props.data);
         return (
             <div>
                 <table>
