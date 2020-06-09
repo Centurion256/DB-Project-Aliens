@@ -105,14 +105,14 @@ class Transportation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     humanid = db.Column(db.Integer, db.ForeignKey("human.id"), nullable=False)
     alienid = db.Column(db.Integer, db.ForeignKey("alien.id"), nullable=False)
-    fromShipId = db.Column(db.Integer, db.ForeignKey("spaceship.id"), nullable=False)
-    toShipId = db.Column(db.Integer, db.ForeignKey("spaceship.id"), nullable=False)
+    fromshipid = db.Column(db.Integer, db.ForeignKey("spaceship.id"), nullable=False)
+    toshipid = db.Column(db.Integer, db.ForeignKey("spaceship.id"), nullable=False)
     date = db.Column(db.Date, nullable=False, default=date.today) 
 
     human = db.relation("Human", backref="transportation")
     alien = db.relation("Alien", backref="transportation")
-    fromShip = db.relation("Spaceship", foreign_keys=[fromShipId]) #TODO: verify backrefs
-    toShip = db.relation("Spaceship", foreign_keys=[toShipId])
+    fromShip = db.relation("Spaceship", foreign_keys=[fromshipid]) #TODO: verify backrefs
+    toShip = db.relation("Spaceship", foreign_keys=[toshipid])
 
 
 class Murder(db.Model):

@@ -37,7 +37,7 @@ class AlienShowResults extends Component {
         return (
             <div className="admin_fill_choose_tables">
                 {/*<h1 className="admin_fill_text">Filling tables with data</h1>*/}
-                <h1 className="admin_fill_text">Admin please choose table to show its content: </h1>
+                <h1 className="admin_fill_text">Alien please choose table to show its content: </h1>
                 <div className="admin_fill_buttons">
                     <Link to="/showing_alien_table">
                         <Button class="button" renderAs="button">

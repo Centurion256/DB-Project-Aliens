@@ -312,11 +312,18 @@ def fill_redemption():
 
 
 
-# @app.route('/api/fill/murder', methods=['POST'])
-# def fill_murder():
-#     print(request.form)
-    
-#     return Response(status='200')
+@app.route('/api/fill/murder', methods=['POST'])
+def fill_murder():
+    data = request.form
+    # print(data["name"], data["status"])
+    #validify
+    alien = Alien.query.get_or_404(data["alien_id"])
+    human = Human.query.get_or_404(data["human_id"])
+
+    new_object = Murder(humanid=data["human_id"], alienid=data["alien_id"])
+    db.session.add(new_object)
+    db.session.commit()
+    return Response(status='200')
 
 
 @app.route('/api/fill/transportation', methods=['POST'])
@@ -327,7 +334,7 @@ def fill_transportation():
     from_ship = Spaceship.query.get_or_404(data["from_ship_id"])
     to_ship = Spaceship.query.get_or_404(data["to_ship_id"])
 
-    new_object = Transportation(humanid=data["human_id"], alienid=data["alien_id"], fromShipId=data["from_ship_id"], toShipId=data["to_ship_id"])
+    new_object = Transportation(humanid=data["human_id"], alienid=data["alien_id"], fromshipid=data["from_ship_id"], toshipid=data["to_ship_id"])
     db.session.add(new_object)
     db.session.commit()
     
@@ -433,7 +440,7 @@ def display_experiments():
 @app.route('/api/display/transportation', methods=['GET'])
 def display_transportations():
     
-    transportations = db.session.query(Transportation.id, Human.name, Alien.name, Transportation.fromShipId, Transportation.toShipId, Transportation.date) \
+    transportations = db.session.query(Transportation.id, Human.name, Alien.name, Transportation.fromshipid, Transportation.toshipid, Transportation.date) \
                          .join(Human, Transportation.humanid == Human.id) \
                          .join(Alien, Transportation.alienid == Alien.id) \
                          .all()

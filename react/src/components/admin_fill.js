@@ -85,21 +85,6 @@ class AdminFillChoose extends Component {
                             Abduction
                         </Button>
                     </Link>
-                    <Link to="/filling_conviction_log_table">
-                        <Button class="button" renderAs="button">
-                            Conviction_Log
-                        </Button>
-                    </Link>
-                    <Link to="/filling_experiment_alien_table">
-                        <Button class="button" renderAs="button">
-                            Experiment_Alien
-                        </Button>
-                    </Link>
-                    <Link to="/filling_excursion_human_table">
-                        <Button class="button" renderAs="button">
-                            Excursion_Human
-                        </Button>
-                    </Link>
                 </div>
             </div>
         )

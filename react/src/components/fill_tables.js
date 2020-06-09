@@ -292,17 +292,11 @@ class MurderFill extends Component {
                 <form className="filling_form" onSubmit={this.handleSubmit}>
                     <label className="filling_label">
                         AlienID:
-                        <input type="text" className="filling_input"/>
+                        <input type="text" className="filling_input" name="alien_id"/>
                     </label>
                     <label className="filling_label">
                         HumanID:
-                        <input type="text" className="filling_input"/>
-                    </label>
-                    <label className="filling_label">
-                        Date:
-                        <input className="filling_input" type="date" id="start" name="trip-start"
-                               defaultValue="2021-07-22"
-                                />
+                        <input type="text" className="filling_input" name="human_id"/>
                     </label>
                     <input type="submit" value="Send" className="send_button"/>
                 </form>
